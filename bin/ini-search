@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'rubygems' unless defined?(Gem)
+begin
+  require 'bundler'
+  Bundler.setup(:default)
+rescue ::Exception => e
+end
+
+require 'ini_search'
+
+# Executable with absolute path to lib for hacking and development
+require File.join(File.dirname(__FILE__), '..', 'lib', 'ini_search', 'cli')
+
+IniSearch::CLI.invoke
