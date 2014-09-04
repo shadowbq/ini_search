@@ -33,4 +33,33 @@ class TestIniSearch < Test::Unit::TestCase
     assert_equal 2, @ini_file['section_one']['two']
   end
 
+  def test_match_section_regex_1
+    out, err = capture_io do 
+      IniSearch::Searcher.new(obj_inifile: @ini_file, key: 'one',  find_existance: true)
+    end
+    assert_match "section_one\nsection_one:one", out 
+  end
+  
+
+  def test_match_section_regex_2
+    out, err = capture_io do 
+      IniSearch::Searcher.new(obj_inifile: @ini_file, key: 'four',  sect_regexp: Regexp.new('secti.*'))
+    end
+    assert_match "section three:four", out   
+  end
+
+  def test_match_section_regex_3
+    out, err = capture_io do 
+      IniSearch::Searcher.new(obj_inifile: @ini_file, key: 'three',  sect_regexp: Regexp.new('section_.*'))
+    end
+    assert_match "", out   
+  end
+
+    def test_match_section_regex_4
+    out, err = capture_io do 
+      IniSearch::Searcher.new(obj_inifile: @ini_file, key: 'five',  sect_regexp: Regexp.new('section_.*'))
+    end
+    assert_match "", out   
+  end
+
 end

@@ -10,20 +10,21 @@ module IniSearch
       @options[:verbose] = 0
       @options[:key] = 'key'
       @options[:sect_regexp] = Regexp.new('.*')
+      @options[:find_existance] = false
 
       optparse = OptionParser.new do |opts|
         opts.banner = "Search ini configs"
         opts.separator "Usage: #$0 [options]"
 
-        opts.on( '-s', '--section [section]', @options[:section].source, 'Section name regex') do |section|
+        opts.on( '-s', '--section [section regex string]', "default: #{@options[:sect_regexp].source}", 'Section name as a regular expression to match') do |section|
           @options[:sect_regexp] =  Regexp.new(section)
         end
 
-        opts.on( '-k', '--key [searchkey]', @options[:key], 'Stanza Key') do |key|
+        opts.on( '-k', '--key [searchkey]', "default: #{@options[:key]}", 'Stanza key') do |key|
           @options[:key] = key
         end
 
-        opts.on( '-x', '--check-for-existance ', @options[:find_existance], 'Check for Existance of key in stanza') do
+        opts.on( '-x', '--check-for-existance ', "default: #{@options[:find_existance]}", 'Report existance of key in Stanza') do
           @options[:find_existance] = true
         end
 
@@ -65,7 +66,7 @@ module IniSearch
       end
 
       begin
-        Search.new(obj_inifile: IniFile.new(@options[:file]), key: @options[:key],  sect_regexp: @options[:sect_regexp], find_existance: @options[:find_existance])
+        Searcher.new(obj_inifile: IniFile.new(:filename => @options[:file]), key: @options[:key],  sect_regexp: @options[:sect_regexp], find_existance: @options[:find_existance])
       rescue
         $stderr.puts "Could not read #{@options[:file]}"
         exit 1
