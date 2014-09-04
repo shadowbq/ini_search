@@ -1,7 +1,7 @@
 language: ruby
 
-before_install: "gem install bones"
-install:        "rake gem:install_dependencies"
+before_install: "gem install bundler"
+install:        "rake install"
 
 script: "rake"
 

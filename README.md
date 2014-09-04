@@ -1,7 +1,9 @@
 ini_search
 ==========
 
-This is a native Ruby package for searching INI files to find enabled keys.
+This is a native Ruby package for searching INI files to find enabled keys. 
+
+[![Gem Version](https://badge.fury.io/rb/IniSearch.svg)](http://badge.fury.io/rb/IniSearch)
 
 Description
 -----------
