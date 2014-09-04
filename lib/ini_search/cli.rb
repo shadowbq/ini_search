@@ -9,10 +9,15 @@ module IniSearch
       @options = {}
       @options[:verbose] = 0
       @options[:key] = 'key'
+      @options[:sect_regexp] = Regexp.new('.*')
 
       optparse = OptionParser.new do |opts|
         opts.banner = "Search ini configs"
         opts.separator "Usage: #$0 [options]"
+
+        opts.on( '-s', '--section [section]', @options[:section].source, 'Section name regex') do |section|
+          @options[:sect_regexp] =  Regexp.new(section)
+        end
 
         opts.on( '-k', '--key [searchkey]', @options[:key], 'Stanza Key') do |key|
           @options[:key] = key
@@ -41,11 +46,11 @@ module IniSearch
 
       end  
     
-      #Verrify the options
+      #Verify the options
       begin
         raise unless ARGV.size > 0
         optparse.parse!
-        exclusive_options = [:file, :scandir]
+        exclusive_options = [:verbose, :scandir]
 
         if (exclusive_options.collect{|item| item if @options.include? item}.compact).length > 1 
           puts "Error: Mutually Exclusive options were selected"    
@@ -60,35 +65,13 @@ module IniSearch
       end
 
       begin
-        search(IniFile.new(@options[:file]), @options[:key], @options[:find_existance])
+        Search.new(obj_inifile: IniFile.new(@options[:file]), key: @options[:key],  sect_regexp: @options[:sect_regexp], find_existance: @options[:find_existance])
       rescue
         $stderr.puts "Could not read #{@options[:file]}"
         exit 1
       end
 
     end
-
-    def search(myfile, key, find_existance)
-
-      myfile.each_section do |section| 
-        if myfile[section].has_key?(key) 
-          verbose "Found '#{key}' Exists: " if find_existance
-          puts "#{section}" if find_existance
-          if myfile[section][key] == "1" || myfile[section][key] == "true"
-            verbose "Found '#{key}' Enabled: " 
-            puts "#{section}" 
-          end
-        end
-      end
-
-    end
-
-    private
-
-    def verbose(msg)
-      print "(" + @options[:file] + ")" if @options[:verbose] > 1 
-      print msg if @options[:verbose] > 0 
-    end  
   
   end
 end    
