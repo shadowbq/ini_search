@@ -3,7 +3,7 @@ ini_search
 
 This is a native Ruby package for searching INI files to find enabled keys. 
 
-[![Gem Version](https://badge.fury.io/rb/IniSearch.svg)](http://badge.fury.io/rb/IniSearch)
+[![Gem Version](https://badge.fury.io/rb/IniSearch.svg)](http://badge.fury.io/rb/IniSearch) [![Build Status](https://travis-ci.org/shadowbq/ini_search.svg?branch=master)](https://travis-ci.org/shadowbq/ini_search)
 
 Description
 -----------
