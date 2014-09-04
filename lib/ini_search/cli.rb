@@ -66,7 +66,7 @@ module IniSearch
       end
 
       begin
-        Searcher.new(obj_inifile: IniFile.new(:filename => @options[:file]), key: @options[:key],  sect_regexp: @options[:sect_regexp], find_existance: @options[:find_existance])
+        Searcher.new(obj_inifile: IniFile.new(:filename => @options[:file]), key: @options[:key],  sect_regexp: @options[:sect_regexp], find_existance: @options[:find_existance], verbosity: @options[:verbose])
       rescue
         $stderr.puts "Could not read #{@options[:file]}"
         exit 1

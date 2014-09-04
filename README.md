@@ -21,6 +21,12 @@ Usage of `ini-search` binary.
 	    -z, --max-verbose                Max Verbose output
 	    -h, --help                       Display this screen
 
+### Example Use
+
+	$ ini-search -f ~/.rvm/gems/ruby-2.1.2/gems/IniSearch-0.0.1/test/data/good.ini -k one
+	section_one:one
+
+
 ### Example File Format Matches
 
 A typical INI file might look like this:
