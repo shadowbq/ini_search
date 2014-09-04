@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    IniSearch (0.0.1)
+      inifile
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    inifile (3.0.0)
+    rake (10.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  IniSearch!
+  bundler (~> 1.0)
+  rake
